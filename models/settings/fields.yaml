@@ -1,0 +1,11 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    api_base_url:
+        label: fes.weather::lang.settings.api_base_url
+        default: http://api.wunderground.com/api/
+    api_key:
+        label: fes.weather::lang.settings.api_key
+        comment: Wunderground API Key (http://www.wunderground.com/weather/api)

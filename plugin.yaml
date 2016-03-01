@@ -1,0 +1,10 @@
+plugin:
+    name: 'fes.weather::lang.plugin.name'
+    description: 'fes.weather::lang.plugin.description'
+    author: 'Arnoud van Susteren'
+    icon: oc-icon-sun-o
+    homepage: 'http://www.frontendstudio.com'
+permissions:
+    fes.weather.settings:
+        tab: Settings
+        label: Settings

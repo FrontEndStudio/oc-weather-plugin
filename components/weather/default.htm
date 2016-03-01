@@ -1,0 +1,22 @@
+{% spaceless %}
+
+  {% set errorMessage = __SELF__.errorMessage %}
+  {% set records = __SELF__.records %}
+
+  {{ records.response.error.url }}
+  {{ records.response.error.type }}
+  {{ records.response.error.description }}
+
+  {% if errorMessage %}
+    {{ errorMessage }}
+  {% else %}
+
+    {% if records.response.features.forecast != 1 %}
+      {{ noRecordsMessage }}
+    {% else %}
+      {{ records.forecast.txt_forecast.forecastday[0].fcttext_metric }}
+    {% endif %}
+
+  {% endif %}
+
+{% endspaceless %}

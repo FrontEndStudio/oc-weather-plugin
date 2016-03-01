@@ -1,0 +1,76 @@
+{% set errorMessage = __SELF__.errorMessage %}
+{% set records = __SELF__.records %}
+
+url: {{ records.response.error.url }} <br>
+error.type: {{ records.response.error.type }} <br>
+error.description: {{ records.response.error.description }} <br>
+version : {{ records.response.version }} <br>
+expirestime : {{ records.response.expirestime }} <br>
+termsOfService : {{ records.response.termsofService }} <br>
+features: {{ records.response.features.forecast }} <br>
+forecast.date: {{ records.forecast.txt_forecast.date }} <br>
+forecastday[0].fcttext_metric: {{ records.forecast.txt_forecast.forecastday[0].fcttext_metric }} <br>
+
+{% if records.response.features.forecast == 1 %}
+
+  {% set date = records.forecast.txt_forecast.date %}
+  {% set fc = records.forecast.txt_forecast.forecastday %}
+  {% set sfc = records.forecast.simpleforecast.forecastday %}
+
+  <strong>date: {{ date }}</strong><br>
+
+  {% for key, item in fc %}
+    period: {{ fc[key].period }} <br>
+    icon: {{ fc[key].icon }} <br>
+    icon_url: {{ fc[key].icon_url }} <br>
+    title: {{ fc[key].title }} <br>
+    fcttext: {{ fc[key].fcttext }} <br>
+    fcttext_metric: {{ fc[key].fcttext_metric }} <br>
+    pop: {{ fc[key].pop }} <br>
+    <hr>
+  {% endfor %}
+
+  {% for key, item in sfc %}
+
+    {% for sub_item in sfc[key].date|cast_to_array %}
+      {{ sub_item[0] }} -  {{ sub_item[1] }} <br>
+    {% endfor %}
+
+    <hr>
+
+    period:  {{ sfc[key].period }} <br>
+    high.fahrenheit: {{ sfc[key].high.fahrenheit }} <br>
+    high.celcius: {{ sfc[key].high.celcius }} <br>
+    low.fahrenheit: {{ sfc[key].low.fahrenheit }} <br>
+    low.celcius: {{ sfc[key].low.celcius }} <br>
+    conditions: {{ sfc[key].low.conditions }} <br>
+    icon: {{ sfc[key].low.icon }} <br>
+    icon_url: {{ sfc[key].low.icon_url }} <br>
+
+    <b>maxwind:</b> <br>
+    {% for sub_item in sfc[key].maxwind|cast_to_array %}
+      {{ sub_item[0] }} -  {{ sub_item[1] }} <br>
+    {% endfor %}
+
+    <b>avewind:</b> <br>
+    {% for sub_item in sfc[key].avewind|cast_to_array %}
+      {{ sub_item[0] }} -  {{ sub_item[1] }} <br>
+    {% endfor %}
+
+    avehumidity: {{ sfc[key].avehumidity }} <br>
+
+    <hr>
+
+  {% endfor %}
+
+{% endif %}
+
+{% if errorMessage %}
+  {{ errorMessage }}
+{% else %}
+
+  {% if records.response.features.forecast != 1 %}
+    {{ noRecordsMessage }}
+  {% endif %}
+
+{% endif %}
