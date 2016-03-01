@@ -1,7 +1,7 @@
 <?php return [
     'plugin' => [
         'name' => 'Weather',
-        'description' => 'Weather description...'
+        'description' => 'Plugin to display weather data'
     ],
     'settings' => [
       'api_base_url' => 'API Base URL',

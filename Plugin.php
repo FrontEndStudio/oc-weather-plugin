@@ -15,8 +15,8 @@ class Plugin extends PluginBase
     {
       return [
           'settings' => [
-            'label'       => 'Weather',
-            'description' => 'Manage Weather settings.',
+            'label'       => 'fes.weather::lang.plugin.name',
+            'description' => 'fes.weather::lang.plugin.description',
             'category'    => 'Plugins',
             'icon'        => 'icon-sun-o',
             'class'       => 'Fes\Weather\Models\Settings',
