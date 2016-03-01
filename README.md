@@ -1,4 +1,4 @@
-# Weather plugin October CMS
+# October CMS Weather plugin
 
 ## About
 
