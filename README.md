@@ -2,7 +2,7 @@
 
 ## About
 
-This a a weather plugin for [October CMS](https://octobercms.com/) data is loaded from [Weather Underground API](https://www.wunderground.com/weather/api/).
+This is a weather plugin for [October CMS](https://octobercms.com/) data is loaded from [Weather Underground API](https://www.wunderground.com/weather/api/).
 
 This plugin is inspired by [Building the weather plugin](http://octobercms.com/blog/post/building-the-weather-plugin) created by Samuel Georges (daftspunk).
 
