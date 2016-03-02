@@ -158,7 +158,7 @@ class Weather extends ComponentBase
 
     protected function listRecords()
     {
-        $url = getUrl();
+        $url = $this->getUrl();
         $format = $this->format;
         $expiresAt = Carbon::now()->addSeconds($this->cache_time);
 
