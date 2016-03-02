@@ -29,7 +29,7 @@ The plugin defines the Weather component that have the following properties:
 * cache_time (required) : [1800] - Number of seconds to cache the result. There is a daily limit and minute rate limit to the number of requests that can be made to the API. While developing put in a low Cachetime on production sites set it higher for example 1800 to have a 30 minutes cache
 * cache_key (required): [1] - A unique key for the caching system. Apply a different value when using this componenent multiple times or with different settings.
 
-*** For details consult the Weather Underground API documentation ***
+**For details consult the Weather Underground API documentation**
 
 ### How to use this component in October CMS
 
