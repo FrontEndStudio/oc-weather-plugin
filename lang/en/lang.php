@@ -4,11 +4,11 @@
         'description' => 'Plugin to display weather data'
     ],
     'settings' => [
-      'api_base_url' => 'API Base URL',
-      'api_base_url_validation' => 'The API Base URL is not valid or set.',
-      'api_key' => 'API Key',
-      'api_key_validation' => 'The API Key is not valid or set.',
-      'error' => 'Something went wrong while connecting to the API. Verify your internet connection, API settings and be sure to have php.ini allow_url_fopen enabled.'
+        'api_base_url' => 'API Base URL',
+        'api_base_url_validation' => 'The API Base URL is not valid or set.',
+        'api_key' => 'API Key',
+        'api_key_validation' => 'The API Key is not valid or set.',
+        'error' => 'Something went wrong while connecting to the API. Verify your internet connection, API settings and be sure to have php.ini allow_url_fopen enabled.'
     ],
     'properties' => [
         'features_title' => 'Features',
@@ -26,8 +26,8 @@
         'cache_key_validation' => 'The Cachekey field is required and may only contain [0-9a-zA-Z_].'
     ],
     'components' => [
-      'list_no_records' => 'No records message',
-      'list_no_records_description' => 'Message to display in the list in case if there are no records. Used in the default component\'s partial.',
-      'list_no_records_default' => 'No records found'
+        'list_no_records' => 'No records message',
+        'list_no_records_description' => 'Message to display in the list in case if there are no records. Used in the default component\'s partial.',
+        'list_no_records_default' => 'No records found'
     ]
 ];

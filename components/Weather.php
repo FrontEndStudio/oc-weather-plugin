@@ -96,21 +96,18 @@ class Weather extends ComponentBase
     {
         $this->prepareVars();
 
-        if ( ! isset($this->errorMessage) ) {
+        if (! isset($this->errorMessage)) {
             $this->records = $this->page['records'] = $this->listRecords();
         }
-
     }
 
     protected function prepareVars()
     {
-
         $this->noRecordsMessage = $this->page['noRecordsMessage'] = Lang::get($this->property('noRecordsMessage'));
-
         $this->api_base_url = Settings::get('api_base_url');
-
         $pattern = '#\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))#iS';
-        if ( ! preg_match($pattern, $this->api_base_url) ) {
+
+        if (!preg_match($pattern, $this->api_base_url)) {
             return $this->errorMessage = Lang::get('fes.weather::lang.settings.api_base_url_validation');
         }
 
@@ -129,15 +126,15 @@ class Weather extends ComponentBase
 
     }
 
-    protected function listRecords()
+    // $url = 'http://api.wunderground.com/api/123/forecast/lang:NL/q/Netherlands/Amsterdam.xml';
+    // $url = '{{ api_base_url }}{{ api_key }}/{{ features}}/{{ settings : ''}}/q/{{ query }}.{{ format}}';
+
+    protected function getUrl()
     {
 
-        // $url = 'http://api.wunderground.com/api/123/forecast/lang:NL/q/Netherlands/Amsterdam.xml';
-        // $url = '{{ api_base_url }}{{ api_key }}/{{ features}}/{{ settings : ''}}/q/{{ query }}.{{ format}}';
-
         if ($this->settings != '') {
-
-            $url = sprintf("%s%s/%s/%s/q/%s.%s",
+            $url = sprintf(
+                "%s%s/%s/%s/q/%s.%s",
                 $this->api_base_url,
                 $this->api_key,
                 $this->features,
@@ -145,51 +142,52 @@ class Weather extends ComponentBase
                 $this->query,
                 $this->format
             );
-
         } else {
-
-            $url = sprintf("%s/api/%s/%s/q/%s.%s",
+            $url = sprintf(
+                "%s/api/%s/%s/q/%s.%s",
                 $this->api_base_url,
                 $this->api_key,
                 $this->features,
                 $this->query,
                 $this->format
             );
-
         }
 
+        return $url;
+    }
+
+    protected function listRecords()
+    {
+        $url = getUrl();
         $format = $this->format;
         $expiresAt = Carbon::now()->addSeconds($this->cache_time);
 
-        $weatherRecords = Cache::remember('weatherRecords_' + $this->cache_key, $expiresAt, function() use ($url, $format, $expiresAt) {
+        $weatherRecords = Cache::remember(
+            'weatherRecords_' + $this->cache_key,
+            $expiresAt,
+            function () use ($url, $format, $expiresAt) {
+                $expiresTime = $expiresAt->hour . ':' .
+                                $expiresAt->minute . ':' .
+                                $expiresAt->second;
 
-            $expiresTime = $expiresAt->hour . ':' . $expiresAt->minute . ':' . $expiresAt->second;
-
-            // xml not implemented
-            if ($format == 'xml') {
-                return;
-            } else {
-                ini_set("allow_url_fopen", "1");
-                $records = file_get_contents($url);
-                ini_set("allow_url_fopen", "0");
-                $records = json_decode($records);
-                $records->response->expirestime = $expiresTime;
-                $records->response->url = $url;
-                return $records;
+                if ($format == 'xml') {
+                    return;
+                } else {
+                    ini_set("allow_url_fopen", "1");
+                    $records = file_get_contents($url);
+                    ini_set("allow_url_fopen", "0");
+                    $records = json_decode($records);
+                    $records->response->expirestime = $expiresTime;
+                    $records->response->url = $url;
+                    return $records;
+                }
             }
+        );
 
-        });
-
-        if(!empty($weatherRecords))
-        {
+        if (!empty($weatherRecords)) {
             return $weatherRecords;
-        }
-        else
-        {
+        } else {
             return $this->errorMessage = Lang::get('fes.weather::lang.settings.error');
         }
-
-
     }
-
 }
