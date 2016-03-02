@@ -23,7 +23,7 @@ The plugin defines the Weather component that have the following properties:
 
 * noRecordsMessage (required): [No records found]- value displayed when there are no weather records found
 * features (required): [forecast] - one or more features. Note that these can be combined into a single request: geolookup/conditions/forecast
-* settings (required): [] - One or more of the settings, given as key:value pairs separated by a colon, for example [lang:NL]
+* settings (optional): [] - One or more of the settings, given as key:value pairs separated by a colon, for example [lang:NL]
 * query (required): [Netherlands/Amsterdam] - The location for which you want weather information.
 * format (required): [json] - The output format of the API call
 * cache_time (required) : [1800] - Number of seconds to cache the result. There is a daily limit and minute rate limit to the number of requests that can be made to the API. While developing put in a low Cachetime on production sites set it higher for example 1800 to have a 30 minutes cache
